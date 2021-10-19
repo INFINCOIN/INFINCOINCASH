@@ -1,0 +1,721 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/infincoincash-qt
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
+
+# infincoincash qt core #
+include Makefile.qt_locale.include
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/optionsdialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/infincoincash/forms/loadingdialog.ui \
+  qt/infincoincash/forms/snackbar.ui \
+  qt/infincoincash/forms/navmenuwidget.ui \
+  qt/infincoincash/forms/lockunlock.ui \
+  qt/infincoincash/forms/expandablebutton.ui \
+  qt/infincoincash/forms/receivedialog.ui \
+  qt/infincoincash/forms/balancebubble.ui \
+  qt/infincoincash/forms/topbar.ui \
+  qt/infincoincash/forms/txrow.ui \
+  qt/infincoincash/forms/dashboardwidget.ui \
+  qt/infincoincash/forms/addresslabelrow.ui \
+  qt/infincoincash/forms/contactdropdownrow.ui \
+  qt/infincoincash/forms/mninfodialog.ui \
+  qt/infincoincash/forms/optionbutton.ui \
+  qt/infincoincash/forms/masternodewizarddialog.ui \
+  qt/infincoincash/forms/mnrow.ui \
+  qt/infincoincash/forms/masternodeswidget.ui \
+  qt/infincoincash/forms/myaddressrow.ui \
+  qt/infincoincash/forms/csrow.ui \
+  qt/infincoincash/forms/sendmemodialog.ui \
+  qt/infincoincash/forms/sendchangeaddressdialog.ui \
+  qt/infincoincash/forms/sendconfirmdialog.ui \
+  qt/infincoincash/forms/sendcustomfeedialog.ui \
+  qt/infincoincash/forms/sendmultirow.ui \
+  qt/infincoincash/forms/send.ui \
+  qt/infincoincash/forms/addnewaddressdialog.ui \
+  qt/infincoincash/forms/addnewcontactdialog.ui \
+  qt/infincoincash/forms/requestdialog.ui \
+  qt/infincoincash/forms/receivewidget.ui \
+  qt/infincoincash/forms/tooltipmenu.ui \
+  qt/infincoincash/forms/addresseswidget.ui \
+  qt/infincoincash/forms/defaultdialog.ui \
+  qt/infincoincash/forms/coldstakingwidget.ui \
+  qt/infincoincash/settings/forms/settingsbackupwallet.ui \
+  qt/infincoincash/settings/forms/settingsexportcsv.ui \
+  qt/infincoincash/settings/forms/settingsbittoolwidget.ui \
+  qt/infincoincash/settings/forms/settingsconsolewidget.ui \
+  qt/infincoincash/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/infincoincash/settings/forms/settingsfaqwidget.ui \
+  qt/infincoincash/settings/forms/settingsinformationwidget.ui \
+  qt/infincoincash/settings/forms/settingsmainoptionswidget.ui \
+  qt/infincoincash/settings/forms/settingsmultisenddialog.ui \
+  qt/infincoincash/settings/forms/settingsmultisendwidget.ui \
+  qt/infincoincash/settings/forms/settingssignmessagewidgets.ui \
+  qt/infincoincash/settings/forms/settingswalletoptionswidget.ui \
+  qt/infincoincash/settings/forms/settingswalletrepairwidget.ui \
+  qt/infincoincash/settings/forms/settingswidget.ui \
+  qt/infincoincash/forms/welcomecontentwidget.ui \
+  qt/infincoincash/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/infincoincash/moc_infincoincashgui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsdialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/infincoincash/moc_loadingdialog.cpp \
+  qt/infincoincash/moc_pwidget.cpp \
+  qt/infincoincash/moc_focuseddialog.cpp \
+  qt/infincoincash/moc_snackbar.cpp \
+  qt/infincoincash/moc_navmenuwidget.cpp \
+  qt/infincoincash/moc_lockunlock.cpp \
+  qt/infincoincash/moc_expandablebutton.cpp \
+  qt/infincoincash/moc_furabstractlistitemdelegate.cpp \
+  qt/infincoincash/moc_receivedialog.cpp \
+  qt/infincoincash/moc_pfborderimage.cpp \
+  qt/infincoincash/moc_topbar.cpp \
+  qt/infincoincash/moc_txrow.cpp \
+  qt/infincoincash/moc_dashboardwidget.cpp \
+  qt/infincoincash/moc_addresslabelrow.cpp \
+  qt/infincoincash/moc_contactdropdownrow.cpp \
+  qt/infincoincash/moc_mninfodialog.cpp \
+  qt/infincoincash/moc_optionbutton.cpp \
+  qt/infincoincash/moc_coldstakingmodel.cpp \
+  qt/infincoincash/moc_mnmodel.cpp \
+  qt/infincoincash/moc_masternodewizarddialog.cpp \
+  qt/infincoincash/moc_mnrow.cpp \
+  qt/infincoincash/moc_masternodeswidget.cpp \
+  qt/infincoincash/moc_myaddressrow.cpp \
+  qt/infincoincash/moc_csrow.cpp \
+  qt/infincoincash/moc_contactsdropdown.cpp \
+  qt/infincoincash/moc_sendchangeaddressdialog.cpp \
+  qt/infincoincash/moc_sendconfirmdialog.cpp \
+  qt/infincoincash/moc_sendcustomfeedialog.cpp \
+  qt/infincoincash/moc_sendmemodialog.cpp \
+  qt/infincoincash/moc_sendmultirow.cpp \
+  qt/infincoincash/moc_send.cpp \
+  qt/infincoincash/moc_addnewaddressdialog.cpp \
+  qt/infincoincash/moc_addnewcontactdialog.cpp \
+  qt/infincoincash/moc_requestdialog.cpp \
+  qt/infincoincash/moc_receivewidget.cpp \
+  qt/infincoincash/moc_tooltipmenu.cpp \
+  qt/infincoincash/moc_addresseswidget.cpp \
+  qt/infincoincash/moc_defaultdialog.cpp \
+  qt/infincoincash/moc_coldstakingwidget.cpp \
+  qt/infincoincash/settings/moc_settingsbackupwallet.cpp \
+  qt/infincoincash/settings/moc_settingsexportcsv.cpp \
+  qt/infincoincash/settings/moc_settingsbittoolwidget.cpp \
+  qt/infincoincash/settings/moc_settingsconsolewidget.cpp \
+  qt/infincoincash/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/infincoincash/settings/moc_settingsfaqwidget.cpp \
+  qt/infincoincash/settings/moc_settingsinformationwidget.cpp \
+  qt/infincoincash/settings/moc_settingsmainoptionswidget.cpp \
+  qt/infincoincash/settings/moc_settingsmultisenddialog.cpp \
+  qt/infincoincash/settings/moc_settingsmultisendwidget.cpp \
+  qt/infincoincash/settings/moc_settingssignmessagewidgets.cpp \
+  qt/infincoincash/settings/moc_settingswalletoptionswidget.cpp \
+  qt/infincoincash/settings/moc_settingswalletrepairwidget.cpp \
+  qt/infincoincash/settings/moc_settingswidget.cpp \
+  qt/infincoincash/moc_welcomecontentwidget.cpp \
+  qt/infincoincash/moc_splash.cpp
+
+BITCOIN_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/infincoincash.moc \
+  qt/intro.moc \
+  qt/rpcconsole.moc \
+  qt/infincoincash/settings/moc_settingsconsolewidget.cpp
+
+QT_QRC_CPP = qt/qrc_infincoincash.cpp
+QT_QRC = qt/infincoincash.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_infincoincash_locale.cpp
+QT_QRC_LOCALE = qt/infincoincash_locale.qrc
+
+PROTOBUF_CC = qt/paymentrequest.pb.cc
+PROTOBUF_H = qt/paymentrequest.pb.h
+PROTOBUF_PROTO = qt/paymentrequest.proto
+
+BITCOIN_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/infincoincash/infincoincashgui.h \
+  qt/bitcoinunits.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsdialog.h \
+  qt/optionsmodel.h \
+  qt/paymentrequestplus.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/trafficgraphwidget.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/infincoincash/prunnable.h \
+  qt/infincoincash/pfborderimage.h \
+  qt/infincoincash/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/infincoincash/pwidget.h \
+  qt/infincoincash/focuseddialog.h \
+  qt/infincoincash/guitransactionsutils.h \
+  qt/infincoincash/snackbar.h \
+  qt/infincoincash/navmenuwidget.h \
+  qt/infincoincash/lockunlock.h \
+  qt/infincoincash/receivedialog.h \
+  qt/infincoincash/furlistrow.h \
+  qt/infincoincash/furabstractlistitemdelegate.h \
+  qt/infincoincash/txviewholder.h \
+  qt/infincoincash/qtutils.h \
+  qt/infincoincash/expandablebutton.h \
+  qt/infincoincash/balancebubble.h \
+  qt/infincoincash/topbar.h \
+  qt/infincoincash/txrow.h \
+  qt/infincoincash/addressholder.h \
+  qt/infincoincash/addressfilterproxymodel.h \
+  qt/infincoincash/dashboardwidget.h \
+  qt/infincoincash/addresslabelrow.h \
+  qt/infincoincash/contactdropdownrow.h \
+  qt/infincoincash/mninfodialog.h \
+  qt/infincoincash/optionbutton.h \
+  qt/infincoincash/coldstakingmodel.h \
+  qt/infincoincash/mnmodel.h \
+  qt/infincoincash/masternodewizarddialog.h \
+  qt/infincoincash/mnrow.h \
+  qt/infincoincash/masternodeswidget.h \
+  qt/infincoincash/myaddressrow.h \
+  qt/infincoincash/csrow.h \
+  qt/infincoincash/contactsdropdown.h \
+  qt/infincoincash/sendchangeaddressdialog.h \
+  qt/infincoincash/sendconfirmdialog.h \
+  qt/infincoincash/sendcustomfeedialog.h \
+  qt/infincoincash/sendmemodialog.h \
+  qt/infincoincash/sendmultirow.h \
+  qt/infincoincash/send.h \
+  qt/infincoincash/addnewaddressdialog.h \
+  qt/infincoincash/addnewcontactdialog.h \
+  qt/infincoincash/requestdialog.h \
+  qt/infincoincash/receivewidget.h \
+  qt/infincoincash/tooltipmenu.h \
+  qt/infincoincash/addresseswidget.h \
+  qt/infincoincash/defaultdialog.h \
+  qt/infincoincash/coldstakingwidget.h \
+  qt/infincoincash/settings/settingsbackupwallet.h \
+  qt/infincoincash/settings/settingsexportcsv.h \
+  qt/infincoincash/settings/settingsbittoolwidget.h \
+  qt/infincoincash/settings/settingsconsolewidget.h \
+  qt/infincoincash/settings/settingsdisplayoptionswidget.h \
+  qt/infincoincash/settings/settingsfaqwidget.h \
+  qt/infincoincash/settings/settingsinformationwidget.h \
+  qt/infincoincash/settings/settingsmainoptionswidget.h \
+  qt/infincoincash/settings/settingsmultisenddialog.h \
+  qt/infincoincash/settings/settingsmultisendwidget.h \
+  qt/infincoincash/settings/settingssignmessagewidgets.h \
+  qt/infincoincash/settings/settingswalletoptionswidget.h \
+  qt/infincoincash/settings/settingswalletrepairwidget.h \
+  qt/infincoincash/settings/settingswidget.h \
+  qt/infincoincash/welcomecontentwidget.h \
+  qt/infincoincash/splash.h
+
+RES_ICONS = \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin.png \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin_testnet.png \
+  qt/res/icons/bitcoin_regtest.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/overview.png \
+  qt/res/icons/ic-transaction-received.png \
+  qt/res/icons/ic-transaction-mint.png \
+  qt/res/icons/ic-transaction-sent.png \
+  qt/res/icons/ic-transaction-staked.png \
+  qt/infincoincash/res/img/bg-dashboard-banner.png \
+  qt/infincoincash/res/img/bg-multi-number-dark.png \
+  qt/infincoincash/res/img/ic-check-locked.png \
+  qt/infincoincash/res/img/ic-nav-address.png \
+  qt/infincoincash/res/img/ic-update.png \
+  qt/infincoincash/res/img/bg-multi-number.png \
+  qt/infincoincash/res/img/ic-check-mint-off.png \
+  qt/infincoincash/res/img/ic-nav-cold-staking.png \
+  qt/infincoincash/res/img/ic-nav-cold-staking-active.png \
+  qt/infincoincash/res/img/ic-nav-dashboard-active.png \
+  qt/infincoincash/res/img/ic-wallet-status-locked.png \
+  qt/infincoincash/res/img/bg-splash.png \
+  qt/infincoincash/res/img/ic-check-mint.png \
+  qt/infincoincash/res/img/ic-nav-dashboard-hover.png \
+  qt/infincoincash/res/img/ic-wallet-status-staking.png \
+  qt/infincoincash/res/img/ic-check-peers-off.png \
+  qt/infincoincash/res/img/ic-nav-dashboard.png \
+  qt/infincoincash/res/img/ic-wallet-status-unlocked.png \
+  qt/infincoincash/res/img/ic-check-peers.png \
+  qt/infincoincash/res/img/ic-nav-master-active.png \
+  qt/infincoincash/res/img/ic-watch-password-white.png \
+  qt/infincoincash/res/img/bg-welcome-container.jpg \
+  qt/infincoincash/res/img/bg-welcome-container.png \
+  qt/infincoincash/res/img/bg-welcome-container@2x.png \
+  qt/infincoincash/res/img/bg-welcome-container@3x.png \
+  qt/infincoincash/res/img/ic-check-staking-off.png \
+  qt/infincoincash/res/img/ic-nav-master-hover.png \
+  qt/infincoincash/res/img/ic-watch-password.png \
+  qt/infincoincash/res/img/bg-welcome.jpg \
+  qt/infincoincash/res/img/bg-welcome.png \
+  qt/infincoincash/res/img/bg-welcome@2x.jpg \
+  qt/infincoincash/res/img/bg-welcome@3x.jpg \
+  qt/infincoincash/res/img/ic-check-staking.png \
+  qt/infincoincash/res/img/ic-nav-master.png \
+  qt/infincoincash/res/img/btn-radio-active.png \
+  qt/infincoincash/res/img/ic-check-sync-off.png \
+  qt/infincoincash/res/img/ic-nav-privacy-active.png \
+  qt/infincoincash/res/img/img-empty-contacts.png \
+  qt/infincoincash/res/img/btn-radio-off.png \
+  qt/infincoincash/res/img/ic-check-sync.png \
+  qt/infincoincash/res/img/ic-nav-privacy-hover.png \
+  qt/infincoincash/res/img/img-empty-dark-contacts.png \
+  qt/infincoincash/res/img/ic-contact-arrow-down.png \
+  qt/infincoincash/res/img/ic-contact-arrow-down-white.png \
+  qt/infincoincash/res/img/ic-check-sync.png \
+  qt/infincoincash/res/img/ic-check-faq.png \
+  qt/infincoincash/res/img/ic-nav-privacy.png \
+  qt/infincoincash/res/img/img-empty-dark-error.png \
+  qt/infincoincash/res/img/ic-add-label.png \
+  qt/infincoincash/res/img/ic-pending.png \
+  qt/infincoincash/res/img/ic-check-theme-dark.png \
+  qt/infincoincash/res/img/ic-nav-receive-active.png \
+  qt/infincoincash/res/img/img-empty-dark-masternode.png \
+  qt/infincoincash/res/img/ic-add-liliac.png \
+  qt/infincoincash/res/img/ic-check-theme-light.png \
+  qt/infincoincash/res/img/ic-nav-receive-hover.png \
+  qt/infincoincash/res/img/img-empty-dark-multisend.png \
+  qt/infincoincash/res/img/ic-add-purple.png \
+  qt/infincoincash/res/img/ic-check-white.png \
+  qt/infincoincash/res/img/ic-nav-receive.png \
+  qt/infincoincash/res/img/img-empty-dark-peers.png \
+  qt/infincoincash/res/img/ic-add.png \
+  qt/infincoincash/res/img/ic-check.png \
+  qt/infincoincash/res/img/ic-nav-send-active.png \
+  qt/infincoincash/res/img/img-empty-dark-staking-off.png \
+  qt/infincoincash/res/img/img-empty-dark-staking-on.png \
+  qt/infincoincash/res/img/ic-address-book-grey.png \
+  qt/infincoincash/res/img/ic-chevron-left.png \
+  qt/infincoincash/res/img/ic-nav-send-hover.png \
+  qt/infincoincash/res/img/img-empty-dark-transactions.png \
+  qt/infincoincash/res/img/ic-address-book-white.png \
+  qt/infincoincash/res/img/ic-chevron-right.png \
+  qt/infincoincash/res/img/ic-chevron-right-liliac.png \
+  qt/infincoincash/res/img/ic-nav-send.png \
+  qt/infincoincash/res/img/img-empty-error.png \
+  qt/infincoincash/res/img/ic-address-book.png \
+  qt/infincoincash/res/img/ic-clear-liliac.png \
+  qt/infincoincash/res/img/ic-nav-settings-active.png \
+  qt/infincoincash/res/img/img-empty-masternode.png \
+  qt/infincoincash/res/img/ic-address-send-white.png \
+  qt/infincoincash/res/img/ic-clear-purple.png \
+  qt/infincoincash/res/img/ic-nav-settings-hover.png \
+  qt/infincoincash/res/img/img-empty-multisend.png \
+  qt/infincoincash/res/img/ic-address-send.png \
+  qt/infincoincash/res/img/ic-close-white.png \
+  qt/infincoincash/res/img/ic-nav-settings.png \
+  qt/infincoincash/res/img/img-empty-peers.png \
+  qt/infincoincash/res/img/img-empty-privacy.png \
+  qt/infincoincash/res/img/img-empty-privacy-dark.png \
+  qt/infincoincash/res/img/ic-arrow-drop-down-white.png \
+  qt/infincoincash/res/img/ic-close.png \
+  qt/infincoincash/res/img/ic-radio-liliac-on.png \
+  qt/infincoincash/res/img/img-empty-staking-off.png \
+  qt/infincoincash/res/img/ic-arrow-drop-down.png \
+  qt/infincoincash/res/img/ic-coin-icc.png \
+  qt/infincoincash/res/img/ic-receive-off.png \
+  qt/infincoincash/res/img/img-empty-staking-on.png \
+  qt/infincoincash/res/img/ic-arrow-drop-up-white.png \
+  qt/infincoincash/res/img/ic-receive-on.png \
+  qt/infincoincash/res/img/img-empty-transactions.png \
+  qt/infincoincash/res/img/ic-arrow-drop-up.png \
+  qt/infincoincash/res/img/ic-received.png \
+  qt/infincoincash/res/img/img-logo-infincoincash.png \
+  qt/infincoincash/res/img/ic-arrow-drop-white-down.png \
+  qt/infincoincash/res/img/ic-combo-box.png \
+  qt/infincoincash/res/img/ic-send.png \
+  qt/infincoincash/res/img/img-logo-infincoincash@2x.png \
+  qt/infincoincash/res/img/ic-arrow-purple-down.png \
+  qt/infincoincash/res/img/ic-connect.png \
+  qt/infincoincash/res/img/ic-submenu-lock.png \
+  qt/infincoincash/res/img/img-logo-infincoincash@3x.png \
+  qt/infincoincash/res/img/img-logo-infincoincash.png \
+  qt/infincoincash/res/img/ic-arrow-right-white.png \
+  qt/infincoincash/res/img/ic-arrow-left-white.png \
+  qt/infincoincash/res/img/ic-arrow-left.png \
+  qt/infincoincash/res/img/ic-copy-liliac.png \
+  qt/infincoincash/res/img/ic-submenu-staking.png \
+  qt/infincoincash/res/img/img-nav-logo-infincoincash.png \
+  qt/infincoincash/res/img/ic-arrow-right.png \
+  qt/infincoincash/res/img/ic-copy.png \
+  qt/infincoincash/res/img/ic-copy-big.png \
+  qt/infincoincash/res/img/ic-copy-big-white.png \
+  qt/infincoincash/res/img/ic-submenu-unlock.png \
+  qt/infincoincash/res/img/img-nav-logo.png \
+  qt/infincoincash/res/img/ic-arrow-white-left.png \
+  qt/infincoincash/res/img/ic-exit.png \
+  qt/infincoincash/res/img/ic-switch-liliac-on.png \
+  qt/infincoincash/res/img/img-nav-logo.png \
+  qt/infincoincash/res/img/ic-arrow-white-right.png \
+  qt/infincoincash/res/img/ic-expand.png \
+  qt/infincoincash/res/img/ic-switch-off.png \
+  qt/infincoincash/res/img/img-qr-test-big.png \
+  qt/infincoincash/res/img/ic-check-active.png \
+  qt/infincoincash/res/img/ic-folder.png \
+  qt/infincoincash/res/img/ic-switch-on.png \
+  qt/infincoincash/res/img/img-qr-test.png \
+  qt/infincoincash/res/img/ic-check-box.png \
+  qt/infincoincash/res/img/ic-check-box-dark-active.png \
+  qt/infincoincash/res/img/ic-check-box-indeterminate.png \
+  qt/infincoincash/res/img/ic-check-box-liliac-indeterminate.png \
+  qt/infincoincash/res/img/ic-label-liliac.png \
+  qt/infincoincash/res/img/ic-transaction-warning.png \
+  qt/infincoincash/res/img/ic-transaction-mint.png \
+  qt/infincoincash/res/img/ic-transaction-mint-inactive.png \
+  qt/infincoincash/res/img/ic-check-cold-staking.png \
+  qt/infincoincash/res/img/ic-check-cold-staking-off.png \
+  qt/infincoincash/res/img/ic-check-cold-staking-enabled.png \
+  qt/infincoincash/res/img/dark/ic-transaction-cs-contract.png \
+  qt/infincoincash/res/img/dark/ic-transaction-cs-contract-inactive.png \
+  qt/infincoincash/res/img/img-qr.png \
+  qt/infincoincash/res/img/ic-check-connect-off.png \
+  qt/infincoincash/res/img/ic-check-tor-off.png \
+  qt/infincoincash/res/img/ic-check-tor.png \
+  qt/infincoincash/res/img/ic-label.png \
+  qt/infincoincash/res/img/ic-transaction-received.png \
+  qt/infincoincash/res/img/dark/ic-transaction-received.png \
+  qt/infincoincash/res/img/dark/ic-transaction-warning.png \
+  qt/infincoincash/res/img/dark/ic-transaction-mint.png \
+  qt/infincoincash/res/img/dark/ic-transaction-mint-inactive.png \
+  qt/infincoincash/res/img/ic-transaction-received-inactive.png \
+  qt/infincoincash/res/img/dark/ic-transaction-received-inactive.png \
+  qt/infincoincash/res/img/img-welcome-step1.png \
+  qt/infincoincash/res/img/ic-check-connect.png \
+  qt/infincoincash/res/img/ic-menu-hover.png \
+  qt/infincoincash/res/img/ic-transaction-sent.png \
+  qt/infincoincash/res/img/ic-transaction-sent-inactive.png \
+  qt/infincoincash/res/img/dark/ic-transaction-sent.png \
+  qt/infincoincash/res/img/dark/ic-transaction-sent-inactive.png \
+  qt/infincoincash/res/img/img-welcome-step2.png \
+  qt/infincoincash/res/img/ic-check-dark.png \
+  qt/infincoincash/res/img/ic-mint.png \
+  qt/infincoincash/res/img/ic-transaction-staked.png \
+  qt/infincoincash/res/img/ic-transaction-staked-inactive.png \
+  qt/infincoincash/res/img/dark/ic-transaction-staked.png \
+  qt/infincoincash/res/img/dark/ic-transaction-staked-inactive.png \
+  qt/infincoincash/res/img/img-welcome-step3.png \
+  qt/infincoincash/res/img/ic-check-liliac-on.png \
+  qt/infincoincash/res/img/ic-nav-address-active.png \
+  qt/infincoincash/res/img/ic-unlock-staking.png \
+  qt/infincoincash/res/img/img-welcome-step4.png \
+  qt/infincoincash/res/img/ic-check-locked-off.png \
+  qt/infincoincash/res/img/ic-nav-address-hover.png \
+  qt/infincoincash/res/img/ic-update-liliac.png \
+  qt/infincoincash/res/img/ic-arrow-drop-down-purple.png \
+  qt/infincoincash/res/img/ic-arrow-drop-up-purple.png \
+  qt/infincoincash/res/img/ic-check-liliac-indeterminate.png \
+  qt/infincoincash/res/img/ic-check-box-liliac-indeterminate.png \
+  qt/infincoincash/res/img/ic-transaction-stake-delegated.png \
+  qt/infincoincash/res/img/ic-transaction-stake-delegated-inactive.png \
+  qt/infincoincash/res/img/ic-transaction-stake-hot.png \
+  qt/infincoincash/res/img/ic-transaction-stake-hot-inactive.png \
+  qt/infincoincash/res/img/dark/ic-transaction-stake-hot.png \
+  qt/infincoincash/res/img/dark/ic-transaction-stake-hot-inactive.png \
+  qt/infincoincash/res/img/dark/ic-transaction-stake-delegated.png \
+  qt/infincoincash/res/img/dark/ic-transaction-stake-delegated-inactive.png \
+  qt/infincoincash/res/img/ic-transaction-cs-contract.png \
+  qt/infincoincash/res/img/ic-transaction-cs-contract-inactive.png \
+  qt/infincoincash/res/img/ic-check-box-indeterminate.png \
+  qt/infincoincash/res/img/ic-information.png \
+  qt/infincoincash/res/img/ic-information-hover.png \
+  qt/infincoincash/res/img/ani-loading-dark.gif \
+  qt/infincoincash/res/img/ani-loading.gif
+
+BITCOIN_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/infincoincash/infincoincashgui.cpp \
+  qt/bitcoinunits.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsdialog.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+BITCOIN_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentrequestplus.cpp \
+  qt/paymentserver.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/infincoincash/loadingdialog.cpp \
+  qt/infincoincash/pwidget.cpp \
+  qt/infincoincash/focuseddialog.cpp \
+  qt/infincoincash/guitransactionsutils.cpp \
+  qt/infincoincash/snackbar.cpp \
+  qt/infincoincash/navmenuwidget.cpp \
+  qt/infincoincash/lockunlock.cpp \
+  qt/infincoincash/receivedialog.cpp \
+  qt/infincoincash/furabstractlistitemdelegate.cpp \
+  qt/infincoincash/txviewholder.cpp \
+  qt/infincoincash/qtutils.cpp \
+  qt/infincoincash/expandablebutton.cpp \
+  qt/infincoincash/balancebubble.cpp \
+  qt/infincoincash/topbar.cpp \
+  qt/infincoincash/txrow.cpp \
+  qt/infincoincash/addressholder.cpp \
+  qt/infincoincash/addressfilterproxymodel.cpp \
+  qt/infincoincash/dashboardwidget.cpp \
+  qt/infincoincash/addresslabelrow.cpp \
+  qt/infincoincash/contactdropdownrow.cpp \
+  qt/infincoincash/contactsdropdown.cpp \
+  qt/infincoincash/optionbutton.cpp \
+  qt/infincoincash/mninfodialog.cpp \
+  qt/infincoincash/coldstakingmodel.cpp \
+  qt/infincoincash/mnmodel.cpp \
+  qt/infincoincash/masternodewizarddialog.cpp \
+  qt/infincoincash/mnrow.cpp \
+  qt/infincoincash/masternodeswidget.cpp \
+  qt/infincoincash/myaddressrow.cpp \
+  qt/infincoincash/csrow.cpp \
+  qt/infincoincash/sendchangeaddressdialog.cpp \
+  qt/infincoincash/sendconfirmdialog.cpp \
+  qt/infincoincash/sendcustomfeedialog.cpp \
+  qt/infincoincash/sendmemodialog.cpp \
+  qt/infincoincash/sendmultirow.cpp \
+  qt/infincoincash/send.cpp \
+  qt/infincoincash/addnewaddressdialog.cpp \
+  qt/infincoincash/addnewcontactdialog.cpp \
+  qt/infincoincash/requestdialog.cpp \
+  qt/infincoincash/receivewidget.cpp \
+  qt/infincoincash/tooltipmenu.cpp \
+  qt/infincoincash/addresseswidget.cpp \
+  qt/infincoincash/defaultdialog.cpp \
+  qt/infincoincash/coldstakingwidget.cpp \
+  qt/infincoincash/settings/settingsbackupwallet.cpp \
+  qt/infincoincash/settings/settingsexportcsv.cpp \
+  qt/infincoincash/settings/settingsbittoolwidget.cpp \
+  qt/infincoincash/settings/settingsconsolewidget.cpp \
+  qt/infincoincash/settings/settingsdisplayoptionswidget.cpp \
+  qt/infincoincash/settings/settingsfaqwidget.cpp \
+  qt/infincoincash/settings/settingsinformationwidget.cpp \
+  qt/infincoincash/settings/settingsmainoptionswidget.cpp \
+  qt/infincoincash/settings/settingsmultisenddialog.cpp \
+  qt/infincoincash/settings/settingsmultisendwidget.cpp \
+  qt/infincoincash/settings/settingssignmessagewidgets.cpp \
+  qt/infincoincash/settings/settingswalletoptionswidget.cpp \
+  qt/infincoincash/settings/settingswalletrepairwidget.cpp \
+  qt/infincoincash/settings/settingswidget.cpp \
+  qt/infincoincash/welcomecontentwidget.cpp \
+  qt/infincoincash/splash.cpp
+
+
+BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += $(BITCOIN_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png \
+  qt/res/images/splash.png \
+  qt/res/images/splash_testnet.png \
+  qt/res/images/splash_regtest.png
+
+RES_CSS = \
+  qt/res/css/default.css \
+  qt/infincoincash/res/css/style_dark.css \
+  qt/infincoincash/res/css/style_light.css
+
+BITCOIN_RC = qt/res/infincoincash-qt-res.rc
+
+BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+  $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_infincoincash_qt_OBJECTS) : | $(QT_MOC)
+
+#Generating these with a half-written protobuf header leads to wacky results.
+#This makes sure it's done.
+$(QT_MOC): $(PROTOBUF_H)
+$(QT_MOC_CPP): $(PROTOBUF_H)
+
+# infincoincash-qt binary #
+qt_infincoincash_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_infincoincash_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_infincoincash_qt_SOURCES = qt/infincoincash.cpp
+if TARGET_DARWIN
+  qt_infincoincash_qt_SOURCES += $(BITCOIN_MM)
+endif
+if TARGET_WINDOWS
+  qt_infincoincash_qt_SOURCES += $(BITCOIN_RC)
+endif
+qt_infincoincash_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+if ENABLE_WALLET
+qt_infincoincash_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+endif
+if ENABLE_ZMQ
+qt_infincoincash_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+endif
+qt_infincoincash_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBSAPLING) $(LIBRUSTZCASH) $(LIBZCASH_LIBS) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+qt_infincoincash_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_infincoincash_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/infincoincashstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/infincoincashstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/infincoincash.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/infincoincash_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name infincoincash_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(PROTOBUF_H)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name infincoincash $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/infincoincash/*.gcda qt/infincoincash/*.gcno qt/infincoincash/settings/*.gcda qt/infincoincash/settings/*.gcno qt/temp_infincoincash_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+infincoincash_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_infincoincash_qt_OBJECTS) qt/infincoincash-qt$(EXEEXT) $(LIBBITCOINQT)
+
+infincoincash_qt : qt/infincoincash-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@

@@ -1,0 +1,3 @@
+usr/local/bin/infincoincashd usr/bin
+usr/local/bin/infincoincash-cli usr/bin
+debian/examples/infincoincash.conf etc/infincoincash

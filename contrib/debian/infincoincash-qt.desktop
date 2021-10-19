@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=INFINCOIN CASH
+Comment=INFINCOINCASH P2P Cryptocurrency
+Comment[fr]=INFINCOINCASH, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=INFINCOINCASH, eşten eşe kriptografik sanal para birimi
+Exec=infincoincash-qt %u
+Terminal=false
+Type=Application
+Icon=infincoincash128
+MimeType=x-scheme-handler/infincoincash;
+Categories=Office;Finance;
+StartupWMClass=infincoincash-qt

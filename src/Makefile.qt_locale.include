@@ -1,0 +1,14 @@
+QT_TS = \
+  qt/locale/infincoincash_de.ts \
+  qt/locale/infincoincash_en.ts \
+  qt/locale/infincoincash_en_US.ts \
+  qt/locale/infincoincash_es.ts \
+  qt/locale/infincoincash_es_ES.ts \
+  qt/locale/infincoincash_fr_FR.ts \
+  qt/locale/infincoincash_hr_HR.ts \
+  qt/locale/infincoincash_it.ts \
+  qt/locale/infincoincash_ko_KR.ts \
+  qt/locale/infincoincash_nl.ts \
+  qt/locale/infincoincash_pl.ts \
+  qt/locale/infincoincash_ru.ts \
+  qt/locale/infincoincash_zh_CN.ts
